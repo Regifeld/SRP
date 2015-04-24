@@ -45,6 +45,7 @@ struct ack
  
 int main()
 {
+ int count;
  int serversocket;
  sockaddr_in serveraddr,clientaddr;
  socklen_t len;
@@ -136,8 +137,9 @@ int main()
   n=l;
   while(m<windowsize && n<totalpackets)
   {
-   if(acknowledgement.acknowledge[m]==-1)
+   if(acknowledgement.acknowledge[m]==1)
    {
+    count++;
     printf("\nNegative acknowledgement received for packet: %d\n",f1.packet[m]);
     k=1;
     repacket[j]=f1.packet[m];
@@ -157,11 +159,12 @@ int main()
   }
  
   framessend++;
-  printf("\nPRESS ENTER TO PROCEED……\n");
-  fgets(req,2,stdin);
+  //printf("\nPRESS ENTER TO PROCEED……\n");
+  //fgets(req,2,stdin);
   cls();
  }
  
+ printf("Number of nacks: %d", count);
  printf("\nAll frames send successfully.\n\nClosing connection with the client.\n");
  close(serversocket);
 }
