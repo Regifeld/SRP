@@ -21,6 +21,8 @@
 #include<netdb.h>
 #include<strings.h>  //needed for bzero
 #include <unistd.h>  //needed for close
+#include <time.h>
+#include <stdlib.h>
  
 #define cls() printf("33[H33[J")
                                                  //structure definition for accepting the packets.
@@ -36,6 +38,14 @@ struct ack
  
 int main()
 {
+ //seed random generator
+ srand (time(NULL));
+ //generator random number between 1 and 1000
+ int rnum;
+
+ 
+
+
  int clientsocket;
  sockaddr_in serveraddr;
  socklen_t len;
@@ -102,8 +112,13 @@ int main()
    {
     printf("\nPacket: %d\n",f1.packet[m]); 
                                                 //accepting acknowledgement from the user.
-    scanf("%d",&acknowledgement.acknowledge[m]);
-     if(acknowledgement.acknowledge[m]==-1)
+    //scanf("%d",&acknowledgement.acknowledge[m]);
+     rnum = rand() % 5 + 1;
+     printf("rnum is: %d\n",rnum);
+     printf("m is: %d\n",m);
+     acknowledgement.acknowledge[m]=(int)rnum;
+     printf("acknowledgement is: %d\n",acknowledgement.acknowledge[m]); 
+     if(acknowledgement.acknowledge[m]==1)
     {
      repacket[j]=f1.packet[m];
      j++;
