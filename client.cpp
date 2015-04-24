@@ -114,8 +114,6 @@ int main()
                                                 //accepting acknowledgement from the user.
     //scanf("%d",&acknowledgement.acknowledge[m]);
      rnum = rand() % 5 + 1;
-     printf("rnum is: %d\n",rnum);
-     printf("m is: %d\n",m);
      acknowledgement.acknowledge[m]=(int)rnum;
      printf("acknowledgement is: %d\n",acknowledgement.acknowledge[m]); 
      if(acknowledgement.acknowledge[m]==1)
