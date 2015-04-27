@@ -28,18 +28,18 @@
 #include<strings.h>  //needed for bzero
 #include <unistd.h>  //needed for close
  
-#define cls() printf("33[H33[J")
+#define cls() printf("\n")
  
                                                             //structure definition for designing the packet.
 struct frame
 {
- int packet[40];
+ int packet[10000];
 };
  
                                     //structure definition for accepting the acknowledgement.
 struct ack
 {
- int acknowledge[40];
+ int acknowledge[10000];
 };
  
  
@@ -49,7 +49,7 @@ int main()
  int serversocket;
  sockaddr_in serveraddr,clientaddr;
  socklen_t len;
- int windowsize,totalpackets,totalframes,framessend=0,i=0,j=0,k,l,m,n,repacket[40];
+ int windowsize,totalpackets,totalframes,framessend=0,i=0,j=0,k,l,m,n,repacket[10000];
  ack acknowledgement;
  frame f1;
  char req[50];
@@ -82,8 +82,10 @@ int main()
  printf("\nThe windowsize obtained as:\t%d\n",windowsize);
  
  printf("\nObtaining packets from network layer.\n");
- printf("\nTotal packets obtained:\t%d\n",(totalpackets=windowsize*5));
- printf("\nTotal frames or windows to be transmitted:\t%d\n",(totalframes=5));
+ //printf("\nTotal packets obtained:\t%d\n",(totalpackets=windowsize*5));
+ printf("\nTotal packets obtained:\t%d\n",(totalpackets=100000));
+ //printf("\nTotal frames or windows to be transmitted:\t%d\n",(totalframes=5));
+ printf("\nTotal frames or windows to be transmitted:\t%d\n",(totalframes=totalpackets / windowsize));
  
                                                             //sending details to client.
  printf("\nSending total number of packets.\n");
@@ -105,18 +107,18 @@ int main()
                                                             //initialising the transmit buffer.
   bzero((char*)&f1,sizeof(f1));
   printf("\nInitialising the transmit buffer.\n");
-  printf("\nThe frame to be send is %d with packets:\t",framessend);
+  //printf("\nThe frame to be send is %d with packets:\t",framessend);
                                                             //Builting the frame.
   for(m=0;m<j;m++)
   {
             //including the packets for which negative acknowledgement was received.
-   printf("%d  ",repacket[m]);
+   //printf("%d  ",repacket[m]);
    f1.packet[m]=repacket[m];
   }
  
   while(j<windowsize && i<totalpackets)
   {
-   printf("%d  ",i);
+   //printf("%d  ",i);
    f1.packet[j]=i;
    i++;
    j++;
