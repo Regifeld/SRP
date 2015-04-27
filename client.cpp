@@ -24,16 +24,16 @@
 #include <time.h>
 #include <stdlib.h>
  
-#define cls() printf("33[H33[J")
+#define cls() printf("\n")
                                                  //structure definition for accepting the packets.
 struct frame
 {
- int packet[40];
+ int packet[10000];
 };
                          //structure definition for constructing the acknowledgement frame
 struct ack
 {
- int acknowledge[40];
+ int acknowledge[10000];
 };
  
 int main()
@@ -43,15 +43,12 @@ int main()
  //generator random number between 1 and 1000
  int rnum;
 
- 
-
-
  int clientsocket;
  sockaddr_in serveraddr;
  socklen_t len;
  hostent * server;
  frame f1;
- int windowsize,totalpackets,totalframes,i=0,j=0,framesreceived=0,k,l,m,repacket[40];
+ int windowsize,totalpackets,totalframes,i=0,j=0,framesreceived=0,k,l,m,repacket[10000];
  ack acknowledgement;
  char req[50];
   clientsocket=socket(AF_INET,SOCK_DGRAM,0);
@@ -113,7 +110,7 @@ int main()
     printf("\nPacket: %d\n",f1.packet[m]); 
                                                 //accepting acknowledgement from the user.
     //scanf("%d",&acknowledgement.acknowledge[m]);
-     rnum = rand() % 5 + 1;
+     rnum = rand() % 1000 + 1;
      acknowledgement.acknowledge[m]=(int)rnum;
      printf("acknowledgement is: %d\n",acknowledgement.acknowledge[m]); 
      if(acknowledgement.acknowledge[m]==1)
